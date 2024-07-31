@@ -1,10 +1,12 @@
 {
-  "name": "react-skeleton",
+  "name": "react-playground",
   "version": "0.1.0",
-  "homepage": "https://adamjanicki2.github.io/react-skeleton",
+  "homepage": "https://adamjanicki2.github.io/react-playground",
   "private": true,
   "dependencies": {
     "@adamjanicki/ui": "^1.1.3",
+    "@uiw/codemirror-extensions-langs": "^4.23.0",
+    "@uiw/react-codemirror": "^4.23.0",
     "hamburger-react": "^2.5.0",
     "react": ">=18",
     "react-dom": ">=18",

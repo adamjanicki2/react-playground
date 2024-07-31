@@ -25,29 +25,3 @@
 .navlink-li {
   margin-left: 2rem;
 }
-
-@media only screen and (max-width: 768px) {
-  .bar-container {
-    width: 100%;
-  }
-  .link-container,
-  .nav {
-    flex-direction: column;
-  }
-  .nav-open {
-    height: 100vh;
-  }
-  .link-container {
-    width: 100%;
-    align-items: start;
-  }
-  .navlink-li {
-    margin: 0;
-    width: 100%;
-  }
-  .navlink {
-    width: 100%;
-    display: flex;
-    margin: 0.5rem 0;
-  }
-}
