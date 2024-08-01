@@ -3,6 +3,7 @@ import { classNames } from "@adamjanicki/ui/utils/util";
 import { useEffect, useRef, useState } from "react";
 import Compiler from "src/components/Compiler";
 import Editor from "src/components/Editor";
+import { downloadCode, getCurrentTimestamp } from "src/utils/util";
 
 const codeString = `import React from 'react'
 
@@ -25,9 +26,6 @@ const Playground = ({ width, style, className }: Props) => {
   const [code, setCode] = useState(codeString);
   const [codeToCompile, setCodeToCompile] = useState(codeString);
 
-  const [editorWidthPerc] = useState(0.5);
-  const [compilerWidthPerc] = useState(0.5);
-
   useEffect(() => {
     const keyListener = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "s") {
@@ -49,7 +47,7 @@ const Playground = ({ width, style, className }: Props) => {
       className={classNames("flex flex-column", className)}
       style={{ width, ...(style || {}) }}
     >
-      <div className="flex items-center w-100">
+      <div className="flex items-center w-100 mb2">
         <Button
           ref={compileRef}
           onClick={() => {
@@ -58,15 +56,24 @@ const Playground = ({ width, style, className }: Props) => {
         >
           Compile <code>(⌃S)</code>
         </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            downloadCode(code, `react-playground-${getCurrentTimestamp()}.jsx`)
+          }
+          className="ml2"
+        >
+          Download
+        </Button>
       </div>
       <div className="flex w-100 playground-container">
         <Editor
-          width={editorWidthPerc * width}
+          screenWidth={width}
+          height="50vh"
           code={code}
           setCode={setCode}
-          height="50vh"
         />
-        <Compiler width={compilerWidthPerc * width} code={codeToCompile} />
+        <Compiler code={codeToCompile} />
       </div>
     </div>
   );

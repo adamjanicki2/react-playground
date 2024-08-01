@@ -1,14 +1,14 @@
 /* Code mirror overrides */
 .editor-container {
-  padding: 0.5rem;
   font-size: 14px;
-}
-
-.editor-container > :first-child {
-  outline: none;
+  overflow: scroll;
 }
 
 .editor-container .cm-gutters {
-  background-color: transparent;
+  background-color: white;
   border: none;
+}
+
+.editor-container .cm-editor {
+  outline: none;
 }

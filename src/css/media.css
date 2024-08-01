@@ -12,9 +12,20 @@
   .playground-container {
     flex-direction: column;
   }
-
   .editor-container,
-  .output {
+  .compiler-output {
     width: 100% !important;
+    min-width: 100% !important;
+  }
+  .editor-container {
+    border: 2px dashed var(--ajui-default-border);
+    border-radius: var(--ajui-rounded-radius);
+  }
+  .handle-wrapper {
+    display: none;
+  }
+  .compiler-output {
+    box-shadow: none !important;
+    padding: 0 !important;
   }
 }

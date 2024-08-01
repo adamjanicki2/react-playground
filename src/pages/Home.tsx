@@ -6,6 +6,7 @@ const Home = () => {
   const [screenWidth, setScreenWidth] = useState(usableWidth());
 
   useEffect(() => {
+    document.title = "React Playground";
     const handleResize = () => setScreenWidth(usableWidth());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

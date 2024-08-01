@@ -7,7 +7,6 @@ import "src/components/compiler.css";
 
 type Props = {
   code: string;
-  width: number;
 };
 
 type ComponentType = () => JSX.Element;
@@ -21,7 +20,7 @@ const _require = (moduleName: string) => {
   throw new Error(`Module '${moduleName}' not found`);
 };
 
-const Compiler = ({ code, width }: Props) => {
+const Compiler = ({ code }: Props) => {
   const Component = useMemo<ComponentType>(() => {
     try {
       // Transform the JSX code into JavaScript
@@ -67,7 +66,7 @@ const Compiler = ({ code, width }: Props) => {
     : () => <Alert type="info">No code generated yet.</Alert>;
 
   return (
-    <div className="output" style={{ width }}>
+    <div className="compiler-output">
       <Boundary
         fallback={({ error }) => <Alert type="error">{error.toString()}</Alert>}
       >
