@@ -5,6 +5,24 @@ import { Alert } from "@adamjanicki/ui";
 import allowedModules from "src/utils/allowedModules";
 import "src/components/compiler.css";
 
+type ErrorMessageProps = {
+  error: Error;
+};
+
+const ErrorMessage = ({ error }: ErrorMessageProps) => (
+  <Alert type="error">
+    <p className="pa0 ma0">
+      <strong>{error.name}</strong>:{" "}
+      {error.message.split("\n").map((line: string, index: number) => (
+        <>
+          {index > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </p>
+  </Alert>
+);
+
 type Props = {
   code: string;
 };
@@ -57,7 +75,7 @@ const Compiler = ({ code }: Props) => {
         ))
       );
     } catch (error: any) {
-      return () => <Alert type="error">{error.toString()}</Alert>;
+      return () => <ErrorMessage error={error} />;
     }
   }, [code]);
 
@@ -68,7 +86,7 @@ const Compiler = ({ code }: Props) => {
   return (
     <div className="compiler-output">
       <Boundary
-        fallback={({ error }) => <Alert type="error">{error.toString()}</Alert>}
+        fallback={({ error }) => <ErrorMessage error={error as Error} />}
       >
         {ComponentToRender}
       </Boundary>
