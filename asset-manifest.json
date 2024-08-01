@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/react-playground/static/css/main.ff43691f.css",
+    "main.js": "/react-playground/static/js/main.819d6fe6.js",
+    "static/js/515.c8dfc6c6.chunk.js": "/react-playground/static/js/515.c8dfc6c6.chunk.js",
+    "static/js/971.88e9b64b.chunk.js": "/react-playground/static/js/971.88e9b64b.chunk.js",
+    "static/js/504.cb1abfbc.chunk.js": "/react-playground/static/js/504.cb1abfbc.chunk.js",
+    "static/js/525.5cb16c20.chunk.js": "/react-playground/static/js/525.5cb16c20.chunk.js",
+    "static/js/482.c6b7139f.chunk.js": "/react-playground/static/js/482.c6b7139f.chunk.js",
+    "static/js/555.c9a0974a.chunk.js": "/react-playground/static/js/555.c9a0974a.chunk.js",
+    "static/js/449.75ba37fb.chunk.js": "/react-playground/static/js/449.75ba37fb.chunk.js",
+    "static/js/967.b45c8d5b.chunk.js": "/react-playground/static/js/967.b45c8d5b.chunk.js",
+    "static/js/82.34a989b8.chunk.js": "/react-playground/static/js/82.34a989b8.chunk.js",
+    "static/js/149.3dfda857.chunk.js": "/react-playground/static/js/149.3dfda857.chunk.js",
+    "static/js/92.daaf67f5.chunk.js": "/react-playground/static/js/92.daaf67f5.chunk.js",
+    "static/js/235.49e4ee9b.chunk.js": "/react-playground/static/js/235.49e4ee9b.chunk.js",
+    "index.html": "/react-playground/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.ff43691f.css",
+    "static/js/main.819d6fe6.js"
+  ]
+}
