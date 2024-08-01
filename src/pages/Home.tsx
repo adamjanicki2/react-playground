@@ -13,7 +13,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex justify-center w-100 pt2">
+    <div className="flex justify-center w-100 pt3">
       <Playground width={screenWidth} />
     </div>
   );

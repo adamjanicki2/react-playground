@@ -47,7 +47,7 @@ const Playground = ({ width, style, className }: Props) => {
       className={classNames("flex flex-column", className)}
       style={{ width, ...(style || {}) }}
     >
-      <div className="flex items-center w-100 mb2">
+      <div className="flex items-center w-100 mb3">
         <Button
           ref={compileRef}
           onClick={() => {

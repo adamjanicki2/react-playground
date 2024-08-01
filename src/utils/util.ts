@@ -1,7 +1,10 @@
 export const windowPadding = 16;
 
 export function usableWidth() {
-  return window.innerWidth - 2 * windowPadding;
+  const width = window.visualViewport
+    ? window.visualViewport.width
+    : window.innerWidth;
+  return width - 2 * windowPadding;
 }
 
 export function downloadCode(code: string, filename: string) {
