@@ -9,4 +9,12 @@
   .desktop {
     display: none;
   }
+  .playground-container {
+    flex-direction: column;
+  }
+
+  .editor-container,
+  .output {
+    width: 100% !important;
+  }
 }
