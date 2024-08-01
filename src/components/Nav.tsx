@@ -18,7 +18,6 @@ const Nav = () => (
       <span className="desktop">React Playground</span> 🛝
     </UnstyledLink>
     <ul className="flex items-center link-container ma0">
-      <Navlink to="/">Home</Navlink>
       <Navlink to="/about/">About</Navlink>
     </ul>
   </nav>

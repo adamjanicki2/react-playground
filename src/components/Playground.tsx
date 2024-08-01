@@ -3,6 +3,8 @@ import { classNames } from "@adamjanicki/ui/utils/util";
 import { useEffect, useRef, useState } from "react";
 import Compiler from "src/components/Compiler";
 import Editor from "src/components/Editor";
+import FileUpload from "src/components/FileUpload";
+import { useCodeStore } from "src/hooks";
 import { downloadCode, getCurrentTimestamp } from "src/utils/util";
 
 const codeString = `import React from 'react'
@@ -22,9 +24,11 @@ type Props = {
 
 const Playground = ({ width, style, className }: Props) => {
   const compileRef = useRef<HTMLButtonElement>(null);
+  const { code: savedCode, setCode: setSavedCode } = useCodeStore();
+  const initialCode = savedCode ?? codeString;
 
-  const [code, setCode] = useState(codeString);
-  const [codeToCompile, setCodeToCompile] = useState(codeString);
+  const [code, setCode] = useState(initialCode);
+  const [codeToCompile, setCodeToCompile] = useState(initialCode);
 
   useEffect(() => {
     const keyListener = (event: KeyboardEvent) => {
@@ -51,7 +55,10 @@ const Playground = ({ width, style, className }: Props) => {
         <Button
           ref={compileRef}
           onClick={() => {
-            if (diff) setCodeToCompile(code);
+            if (diff) {
+              setCodeToCompile(code);
+              setSavedCode(code);
+            }
           }}
         >
           Compile <code>(⌃S)</code>
@@ -61,10 +68,20 @@ const Playground = ({ width, style, className }: Props) => {
           onClick={() =>
             downloadCode(code, `react-playground-${getCurrentTimestamp()}.jsx`)
           }
-          className="ml2"
+          className="mh2"
         >
           Download
         </Button>
+        <FileUpload
+          onChange={(file) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const content = reader.result as string;
+              setCode(content);
+            };
+            reader.readAsText(file);
+          }}
+        />
       </div>
       <div className="flex w-100 playground-container">
         <Editor

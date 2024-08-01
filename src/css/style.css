@@ -19,8 +19,9 @@ body {
 }
 
 .page-title-text {
-  font-size: calc(2.5rem + 1vw);
+  font-size: calc(1.9rem + 0.9vw);
   font-weight: 700;
+  margin: 1rem 0;
 }
 
 .bordering {
