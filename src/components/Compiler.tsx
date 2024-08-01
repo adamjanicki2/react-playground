@@ -1,9 +1,28 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import * as Babel from "@babel/standalone";
-import Boundary from "src/components/ErrorBoundary";
 import { Alert } from "@adamjanicki/ui";
 import allowedModules from "src/utils/allowedModules";
+import Boundary from "src/components/ErrorBoundary";
 import "src/components/compiler.css";
+import restrictedGlobals from "src/utils/restrictedGlobals";
+
+type ErrorMessageProps = {
+  error: Error;
+};
+
+const ErrorMessage = ({ error }: ErrorMessageProps) => (
+  <Alert type="error">
+    <p className="pa0 ma0">
+      <strong>{error.name}</strong>:{" "}
+      {error.message.split("\n").map((line: string, index: number) => (
+        <React.Fragment key={index}>
+          {index > 0 && <br />}
+          {line}
+        </React.Fragment>
+      ))}
+    </p>
+  </Alert>
+);
 
 type Props = {
   code: string;
@@ -16,7 +35,6 @@ const _require = (moduleName: string) => {
     const key = moduleName as keyof typeof allowedModules;
     return allowedModules[key];
   }
-  // Does not exist
   throw new Error(`Module '${moduleName}' not found`);
 };
 
@@ -35,29 +53,33 @@ const Compiler = ({ code }: Props) => {
 
       // Create a new function from the transformed code
       const componentModule: Record<string, any> = { exports: {} };
-      // eslint-disable-next-line no-new-func
+
       const componentFunction = new Function(
         "module",
         "exports",
         "require",
+        ...Object.keys(restrictedGlobals),
         transformedCode
       );
-      componentFunction(componentModule, componentModule.exports, _require);
 
-      return (
-        componentModule.exports.default ||
-        (() => (
-          <Alert type="warning">
-            <p className="ma0">
-              No default export was provided.
-              <br />
-              Make sure to add <code>export default</code>.
-            </p>
-          </Alert>
-        ))
+      componentFunction(
+        componentModule,
+        componentModule.exports,
+        _require,
+        ...Object.values(restrictedGlobals)
       );
+
+      const RawComponent = componentModule.exports.default;
+
+      if (typeof RawComponent !== "function") {
+        throw new Error(
+          "No default export found or default export is not a component"
+        );
+      }
+
+      return RawComponent;
     } catch (error: any) {
-      return () => <Alert type="error">{error.toString()}</Alert>;
+      return () => <ErrorMessage error={error} />;
     }
   }, [code]);
 
@@ -68,7 +90,7 @@ const Compiler = ({ code }: Props) => {
   return (
     <div className="compiler-output">
       <Boundary
-        fallback={({ error }) => <Alert type="error">{error.toString()}</Alert>}
+        fallback={({ error }) => <ErrorMessage error={error as Error} />}
       >
         {ComponentToRender}
       </Boundary>
