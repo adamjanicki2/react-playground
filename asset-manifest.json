@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-playground/static/css/main.ff43691f.css",
-    "main.js": "/react-playground/static/js/main.819d6fe6.js",
+    "main.js": "/react-playground/static/js/main.dc6a0a2d.js",
     "static/js/515.c8dfc6c6.chunk.js": "/react-playground/static/js/515.c8dfc6c6.chunk.js",
     "static/js/971.88e9b64b.chunk.js": "/react-playground/static/js/971.88e9b64b.chunk.js",
     "static/js/504.cb1abfbc.chunk.js": "/react-playground/static/js/504.cb1abfbc.chunk.js",
@@ -18,6 +18,6 @@
   },
   "entrypoints": [
     "static/css/main.ff43691f.css",
-    "static/js/main.819d6fe6.js"
+    "static/js/main.dc6a0a2d.js"
   ]
 }
