@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import * as Babel from "@babel/standalone";
 import { Alert } from "@adamjanicki/ui";
 import allowedModules from "src/utils/allowedModules";
-import Boundary from "src/components/ErrorBoundary";
+import { ErrorBoundary as Boundary } from "react-error-boundary";
 import "src/components/compiler.css";
 import restrictedGlobals from "src/utils/restrictedGlobals";
 
@@ -10,19 +10,23 @@ type ErrorMessageProps = {
   error: Error;
 };
 
-const ErrorMessage = ({ error }: ErrorMessageProps) => (
-  <Alert type="error">
-    <p className="pa0 ma0">
-      <strong>{error.name}</strong>:{" "}
-      {error.message.split("\n").map((line: string, index: number) => (
-        <React.Fragment key={index}>
-          {index > 0 && <br />}
-          {line}
-        </React.Fragment>
-      ))}
-    </p>
-  </Alert>
-);
+const ErrorMessage = ({ error }: ErrorMessageProps) => {
+  const name = error?.name || "Unknown Error";
+  const message = error?.message || "This error occurred for an unknown reason";
+  return (
+    <Alert type="error">
+      <p className="pa0 ma0">
+        <strong>{name}</strong>:{" "}
+        {message.split("\n").map((line: string, index: number) => (
+          <React.Fragment key={index}>
+            {index > 0 && <br />}
+            {line}
+          </React.Fragment>
+        ))}
+      </p>
+    </Alert>
+  );
+};
 
 type Props = {
   code: string;
@@ -39,7 +43,7 @@ const _require = (moduleName: string) => {
 };
 
 const Compiler = ({ code }: Props) => {
-  const Component = useMemo<ComponentType>(() => {
+  const CustomCode = useMemo<ComponentType>(() => {
     try {
       // Transform the JSX code into JavaScript
       const transformedCode = Babel.transform(code, {
@@ -58,6 +62,7 @@ const Compiler = ({ code }: Props) => {
         "module",
         "exports",
         "require",
+        "React",
         ...Object.keys(restrictedGlobals),
         transformedCode
       );
@@ -66,6 +71,7 @@ const Compiler = ({ code }: Props) => {
         componentModule,
         componentModule.exports,
         _require,
+        React,
         ...Object.values(restrictedGlobals)
       );
 
@@ -83,19 +89,18 @@ const Compiler = ({ code }: Props) => {
     }
   }, [code]);
 
-  const ComponentToRender = code
-    ? Component
+  const Component = code
+    ? CustomCode
     : () => <Alert type="info">No code generated yet.</Alert>;
 
   return (
     <div className="compiler-output">
       <Boundary
-        fallback={({ error }) => <ErrorMessage error={error as Error} />}
+        fallbackRender={({ error }) => <ErrorMessage error={error as Error} />}
       >
-        {ComponentToRender}
+        <Component />
       </Boundary>
     </div>
   );
 };
-
 export default Compiler;
