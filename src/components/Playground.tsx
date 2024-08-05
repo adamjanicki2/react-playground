@@ -8,14 +8,13 @@ import Editor from "src/components/Editor";
 import FileUpload from "src/components/FileUpload";
 import Menu from "src/components/Menu";
 import { useCodeStore, useKeys } from "src/hooks";
+import lint from "src/utils/lint";
 import { downloadCode, getCurrentTimestamp } from "src/utils/util";
 
-const codeString = `import React from 'react'
+const codeString = `import React from "react";
 
 export default function App() {
-  return (
-    <h1>Hello world!</h1>
-  );
+  return <>Hello world.</>;
 }
 `;
 
@@ -49,10 +48,14 @@ const Playground = ({ width, style, className }: Props) => {
       <div className="flex items-center w-100 mb3">
         <Button
           ref={compileRef}
-          onClick={() => {
+          onClick={async () => {
             if (diff) {
-              setCodeToCompile(code);
-              setSavedCode(code);
+              const lintedCode = await lint(code);
+              if (code !== lintedCode) {
+                setCode(lintedCode);
+              }
+              setCodeToCompile(lintedCode);
+              setSavedCode(lintedCode);
             }
           }}
         >
