@@ -1,13 +1,19 @@
-import Button from "@adamjanicki/ui/components/Button";
 import { useRef } from "react";
 
 type Props = {
   className?: string;
   style?: React.CSSProperties;
   onChange: (file: File) => void;
+  ButtonElement: (props: any) => JSX.Element;
+  ButtonProps: any;
 };
 
-const FileUpload = ({ onChange, ...props }: Props) => {
+const FileUpload = ({
+  onChange,
+  ButtonElement,
+  ButtonProps,
+  ...props
+}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -23,13 +29,13 @@ const FileUpload = ({ onChange, ...props }: Props) => {
           }
         }}
       />
-      <Button
+      <ButtonElement
         onClick={() => inputRef.current?.click()}
-        variant="secondary"
         {...props}
+        {...ButtonProps}
       >
         Upload File
-      </Button>
+      </ButtonElement>
     </>
   );
 };

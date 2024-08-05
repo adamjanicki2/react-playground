@@ -2,6 +2,7 @@
 
 :root {
   --breakpoint: 768px;
+  --hover-bg: #eee;
 }
 
 body {
@@ -25,5 +26,23 @@ body {
 }
 
 .bordering {
-  border: 2px solid green;
+  border: 2px solid red;
+}
+
+.fade {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.alt-button {
+  background-color: transparent;
+  transition: background-color var(--ajui-default-transition);
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .alt-button:not(:disabled):hover,
+  .alt-button:not(:disabled):focus-visible {
+    background-color: var(--hover-bg);
+    opacity: 1;
+  }
 }
