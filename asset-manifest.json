@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-playground/static/css/main.f772093d.css",
-    "main.js": "/react-playground/static/js/main.62caf4c2.js",
+    "main.css": "/react-playground/static/css/main.9fae726e.css",
+    "main.js": "/react-playground/static/js/main.f69bde2c.js",
     "static/js/515.c8dfc6c6.chunk.js": "/react-playground/static/js/515.c8dfc6c6.chunk.js",
     "static/js/971.88e9b64b.chunk.js": "/react-playground/static/js/971.88e9b64b.chunk.js",
     "static/js/504.cb1abfbc.chunk.js": "/react-playground/static/js/504.cb1abfbc.chunk.js",
@@ -18,7 +18,7 @@
     "index.html": "/react-playground/index.html"
   },
   "entrypoints": [
-    "static/css/main.f772093d.css",
-    "static/js/main.62caf4c2.js"
+    "static/css/main.9fae726e.css",
+    "static/js/main.f69bde2c.js"
   ]
 }
