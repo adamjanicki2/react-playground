@@ -50,7 +50,12 @@ const Playground = ({ width, style, className }: Props) => {
           ref={compileRef}
           onClick={async () => {
             if (diff) {
-              const lintedCode = await lint(code);
+              let lintedCode: string;
+              try {
+                lintedCode = await lint(code);
+              } catch (e: any) {
+                return setCodeToCompile(code);
+              }
               if (code !== lintedCode) {
                 setCode(lintedCode);
               }
@@ -59,32 +64,10 @@ const Playground = ({ width, style, className }: Props) => {
             }
           }}
         >
-          Compile <code>(⌘S)</code>
+          Compile <code className="desktop">(⌘S)</code>
         </Button>
-        <Button
-          variant="secondary"
-          onClick={() =>
-            downloadCode(code, `react-playground-${getCurrentTimestamp()}.jsx`)
-          }
-          className="mh2 desktop"
-        >
-          Download
-        </Button>
-        <FileUpload
-          ButtonElement={Button as any}
-          ButtonProps={{ variant: "secondary" }}
-          onChange={(file) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-              const content = reader.result as string;
-              setCode(content);
-            };
-            reader.readAsText(file);
-          }}
-          className="mh2 desktop"
-        />
         <Menu
-          className="mobile ml2"
+          className="ml2"
           trigger={
             <IconButton
               name="more"
@@ -124,7 +107,7 @@ const Playground = ({ width, style, className }: Props) => {
       <div className="flex w-100 playground-container">
         <Editor
           screenWidth={width}
-          height="50vh"
+          height="60vh"
           code={code}
           setCode={setCode}
         />

@@ -1,7 +1,6 @@
 /* Code mirror overrides */
 .editor-container {
   font-size: 14px;
-  overflow: scroll;
 }
 
 .editor-container .cm-gutters {
@@ -11,4 +10,5 @@
 
 .editor-container .cm-editor {
   outline: none;
+  height: 100%;
 }

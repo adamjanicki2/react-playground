@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import * as Babel from "@babel/standalone";
 import { Alert } from "@adamjanicki/ui";
 import allowedModules from "src/utils/allowedModules";
-import { ErrorBoundary as Boundary } from "react-error-boundary";
+import ErrorBoundary from "src/components/ErrorBoundary";
 import "src/components/compiler.css";
 import restrictedGlobals from "src/utils/restrictedGlobals";
 
@@ -95,11 +95,9 @@ const Compiler = ({ code }: Props) => {
 
   return (
     <div className="compiler-output">
-      <Boundary
-        fallbackRender={({ error }) => <ErrorMessage error={error as Error} />}
-      >
+      <ErrorBoundary Fallback={ErrorMessage} deps={code}>
         <Component />
-      </Boundary>
+      </ErrorBoundary>
     </div>
   );
 };
