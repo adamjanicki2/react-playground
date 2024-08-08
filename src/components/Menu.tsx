@@ -43,6 +43,7 @@ const Menu = ({ items, trigger, className, style = {} }: Props) => {
             padding: 0,
             margin: 0,
           }}
+          onClick={() => setOpen(false)}
         >
           {items.map((item, index) => (
             <li key={index}>{item}</li>

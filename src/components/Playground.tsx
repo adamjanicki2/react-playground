@@ -1,4 +1,4 @@
-import { Button, IconButton, UnstyledButton } from "@adamjanicki/ui";
+import { Button, IconButton, Select, UnstyledButton } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/utils/util";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,7 @@ import Editor from "src/components/Editor";
 import FileUpload from "src/components/FileUpload";
 import Menu from "src/components/Menu";
 import { useCodeStore, useKeys } from "src/hooks";
+import availablethemes from "src/utils/availableThemes";
 import lint from "src/utils/lint";
 import { downloadCode, getCurrentTimestamp } from "src/utils/util";
 
@@ -33,6 +34,7 @@ const Playground = ({ width, style, className }: Props) => {
   const [codeToCompile, setCodeToCompile] = useState(initialCode);
 
   const [showEditor, setShowEditor] = useState(true);
+  const [theme, setTheme] = useState("default");
 
   useKeys({
     keys: ["meta+s", "ctrl+s"],
@@ -68,8 +70,14 @@ const Playground = ({ width, style, className }: Props) => {
         >
           Compile <code className="desktop">(⌘S)</code>
         </Button>
+        <Select
+          style={{ padding: "8px" }}
+          options={Object.keys(availablethemes)}
+          value={theme}
+          onChange={(e) => setTheme(e.target.value)}
+          className="mh2"
+        />
         <Menu
-          className="ml2"
           trigger={
             <IconButton
               name="more"
@@ -119,6 +127,7 @@ const Playground = ({ width, style, className }: Props) => {
             height="60vh"
             code={code}
             setCode={setCode}
+            theme={availablethemes[theme]}
           />
         )}
         <div
