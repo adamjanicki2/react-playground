@@ -32,6 +32,8 @@ const Playground = ({ width, style, className }: Props) => {
   const [code, setCode] = useState(initialCode);
   const [codeToCompile, setCodeToCompile] = useState(initialCode);
 
+  const [showEditor, setShowEditor] = useState(true);
+
   useKeys({
     keys: ["meta+s", "ctrl+s"],
     callback: () => compileRef.current?.click(),
@@ -43,7 +45,7 @@ const Playground = ({ width, style, className }: Props) => {
   return (
     <div
       className={classNames("flex flex-column", className)}
-      style={{ width, ...(style || {}) }}
+      style={{ width, minHeight: "60vh", ...(style || {}) }}
     >
       <div className="flex items-center w-100 mb3">
         <Button
@@ -78,20 +80,26 @@ const Playground = ({ width, style, className }: Props) => {
           }
           items={[
             <UnstyledButton
+              className="w-100 pa3 br3 alt-button tl"
+              onClick={() => setShowEditor(!showEditor)}
+            >
+              {showEditor ? "Hide" : "Show"} editor
+            </UnstyledButton>,
+            <UnstyledButton
               onClick={() =>
                 downloadCode(
                   code,
                   `react-playground-${getCurrentTimestamp()}.jsx`
                 )
               }
-              className="w-100 pa3 br3 alt-button"
+              className="w-100 pa3 br3 alt-button tl"
             >
               Download as <code>.jsx</code>
             </UnstyledButton>,
             <FileUpload
               ButtonElement={UnstyledButton as any}
               ButtonProps={{}}
-              className="w-100 pa3 br3 alt-button"
+              className="w-100 pa3 br3 alt-button tl"
               onChange={(file) => {
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -105,13 +113,22 @@ const Playground = ({ width, style, className }: Props) => {
         />
       </div>
       <div className="flex w-100 playground-container">
-        <Editor
-          screenWidth={width}
-          height="60vh"
-          code={code}
-          setCode={setCode}
-        />
-        <Compiler code={codeToCompile} />
+        {showEditor && (
+          <Editor
+            screenWidth={width}
+            height="60vh"
+            code={code}
+            setCode={setCode}
+          />
+        )}
+        <div
+          className={classNames(
+            "compiler-output",
+            showEditor ? "compiler-bs" : ""
+          )}
+        >
+          <Compiler code={codeToCompile} />
+        </div>
       </div>
     </div>
   );

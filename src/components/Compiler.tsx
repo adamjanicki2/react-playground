@@ -94,11 +94,9 @@ const Compiler = ({ code }: Props) => {
     : () => <Alert type="info">No code generated yet.</Alert>;
 
   return (
-    <div className="compiler-output">
-      <ErrorBoundary Fallback={ErrorMessage} deps={code}>
-        <Component />
-      </ErrorBoundary>
-    </div>
+    <ErrorBoundary Fallback={ErrorMessage} deps={code}>
+      <Component />
+    </ErrorBoundary>
   );
 };
 export default Compiler;

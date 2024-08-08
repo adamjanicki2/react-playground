@@ -1,6 +1,9 @@
 .compiler-output {
   overflow: scroll;
   width: 100%;
-  box-shadow: -2px 0 0 0 var(--ajui-default-border);
   padding: 0 1rem;
+}
+
+.compiler-bs {
+  box-shadow: -2px 0 0 0 var(--ajui-default-border);
 }
