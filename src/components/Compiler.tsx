@@ -15,14 +15,11 @@ const ErrorMessage = ({ error }: ErrorMessageProps) => {
   const message = error?.message || "This error occurred for an unknown reason";
   return (
     <Alert type="error">
-      <p className="pa0 ma0">
-        <strong>{name}</strong>:{" "}
-        {message.split("\n").map((line: string, index: number) => (
-          <React.Fragment key={index}>
-            {index > 0 && <br />}
-            {line}
-          </React.Fragment>
-        ))}
+      <p
+        className="pa0 ma0"
+        style={{ lineHeight: 1.4, whiteSpace: "pre-wrap" }}
+      >
+        <strong>{name}</strong>: {message}
       </p>
     </Alert>
   );
@@ -58,6 +55,7 @@ const Compiler = ({ code }: Props) => {
       // Create a new function from the transformed code
       const componentModule: Record<string, any> = { exports: {} };
 
+      // eslint-disable-next-line no-new-func
       const componentFunction = new Function(
         "module",
         "exports",
