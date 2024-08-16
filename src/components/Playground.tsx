@@ -45,10 +45,7 @@ const Playground = ({ width, style, className }: Props) => {
   const diff = code.trim() !== codeToCompile.trim();
 
   return (
-    <div
-      className={classNames("flex flex-column", className)}
-      style={{ width, minHeight: "60vh", ...(style || {}) }}
-    >
+    <div className="flex flex-column">
       <div className="flex items-center w-100 mb3">
         <Button
           ref={compileRef}
@@ -120,11 +117,18 @@ const Playground = ({ width, style, className }: Props) => {
           ]}
         />
       </div>
-      <div className="flex w-100 playground-container">
+      <div
+        className={classNames("flex w-100 playground-container", className)}
+        style={{
+          width,
+          height: "60vh",
+          overflowY: "scroll",
+          ...(style || {}),
+        }}
+      >
         {showEditor && (
           <Editor
             screenWidth={width}
-            height="60vh"
             code={code}
             setCode={setCode}
             theme={availablethemes[theme]}

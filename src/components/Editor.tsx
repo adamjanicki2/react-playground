@@ -8,22 +8,14 @@ type Props = {
   code: string;
   setCode: (code: string) => void;
   screenWidth: number;
-  height?: string | number;
   className?: string;
   theme?: ReactCodeMirrorProps["theme"];
 };
 
-const Editor = ({
-  code,
-  setCode,
-  screenWidth,
-  height,
-  className,
-  theme,
-}: Props) => (
+const Editor = ({ code, setCode, screenWidth, className, theme }: Props) => (
   <Resizable
     className={classNames("flex editor-container", className)}
-    defaultSize={{ width: Math.floor(screenWidth / 2), height }}
+    defaultSize={{ width: Math.floor(screenWidth / 2) }}
     enable={{ right: true }}
     minWidth={350}
     maxWidth={screenWidth - 350}
