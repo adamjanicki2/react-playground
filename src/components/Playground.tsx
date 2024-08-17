@@ -34,7 +34,7 @@ const Playground = ({ width, style, className }: Props) => {
   const [codeToCompile, setCodeToCompile] = useState(initialCode);
 
   const [showEditor, setShowEditor] = useState(true);
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState("VSCode");
 
   useKeys({
     keys: ["meta+s", "ctrl+s"],
@@ -68,16 +68,18 @@ const Playground = ({ width, style, className }: Props) => {
           Compile <code className="desktop">(⌘S)</code>
         </Button>
         <Select
+          aria-label="theme"
           style={{ padding: "8px" }}
           options={Object.keys(availablethemes)}
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
           className="mh2"
+          innerStyle={{ paddingTop: 8, paddingBottom: 8 }}
         />
         <Menu
           trigger={
             <IconButton
-              name="more"
+              aria-label="more"
               className="alt-button flex items-center justify-center"
               style={{ width: 32, height: 32, borderRadius: "50%" }}
               icon={<FontAwesomeIcon icon={faEllipsisVertical} />}
