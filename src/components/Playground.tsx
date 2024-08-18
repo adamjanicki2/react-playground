@@ -25,7 +25,7 @@ type Props = {
   className?: string;
 };
 
-const Playground = ({ width, style, className }: Props) => {
+const Playground = ({ width, style = {}, className }: Props) => {
   const compileRef = useRef<HTMLButtonElement>(null);
   const { code: savedCode, setCode: setSavedCode } = useCodeStore();
   const initialCode = savedCode ?? codeString;
@@ -45,8 +45,11 @@ const Playground = ({ width, style, className }: Props) => {
   const diff = code.trim() !== codeToCompile.trim();
 
   return (
-    <div className="flex flex-column">
-      <div className="flex items-center w-100 mb3">
+    <div className="flex flex-column items-center">
+      <div
+        className="flex items-center pa3 bg-white nav-bs w-100 mb2"
+        style={{ position: "sticky", top: 64, zIndex: 2 }}
+      >
         <Button
           ref={compileRef}
           onClick={async () => {
@@ -121,12 +124,7 @@ const Playground = ({ width, style, className }: Props) => {
       </div>
       <div
         className={classNames("flex w-100 playground-container", className)}
-        style={{
-          width,
-          height: "60vh",
-          overflowY: "scroll",
-          ...(style || {}),
-        }}
+        style={{ width, ...style }}
       >
         {showEditor && (
           <Editor

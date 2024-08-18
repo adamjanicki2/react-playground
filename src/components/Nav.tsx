@@ -14,7 +14,7 @@ const Navlink = (props: NavlinkProps) => (
 );
 
 const Nav = () => (
-  <nav className="flex items-center justify-between w-100 nav pv2 ph4">
+  <nav className="flex items-center justify-between w-100 nav nav-bs pv2 ph4">
     <UnstyledLink className="nav-title flex items-center" to="/">
       <span className="desktop mr2">React Playground</span>
       <Logo style={{ height: 32 }} />

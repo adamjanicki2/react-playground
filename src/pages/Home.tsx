@@ -12,11 +12,7 @@ const Home = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
-    <div className="flex justify-center w-100 pt3">
-      <Playground width={screenWidth} />
-    </div>
-  );
+  return <Playground width={screenWidth} />;
 };
 
 export default Home;

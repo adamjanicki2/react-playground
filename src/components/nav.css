@@ -3,9 +3,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  box-shadow: 0 2px 2px -2px var(--ajui-dark-gray);
   z-index: 1000;
   background-color: #f9f9f9;
+}
+
+.nav-bs {
+  box-shadow: 0 2px 2px -2px var(--ajui-dark-gray);
 }
 
 .link-container {
