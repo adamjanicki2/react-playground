@@ -47,8 +47,8 @@ const Playground = ({ width, style = {}, className }: Props) => {
   return (
     <div className="flex flex-column items-center">
       <div
-        className="flex items-center pa3 bg-white nav-bs w-100 mb2"
-        style={{ position: "sticky", top: 64, zIndex: 2 }}
+        className="flex items-center pa3 bg-white nav-bs w-100"
+        style={{ position: "sticky", top: 0, zIndex: 2 }}
       >
         <Button
           ref={compileRef}

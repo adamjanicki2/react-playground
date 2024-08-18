@@ -24,6 +24,7 @@
   .editor-container {
     border: 2px dashed var(--ajui-default-border);
     border-radius: var(--ajui-rounded-radius);
+    margin-top: 1rem;
   }
   .handle-wrapper {
     display: none;
