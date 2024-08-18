@@ -6,6 +6,14 @@
   overflow-x: hidden;
 }
 
+.toolbar {
+  background-color: white;
+  top: 65px;
+  width: 100%;
+  position: sticky;
+  z-index: 10;
+}
+
 @media only screen and (max-width: 768px) {
   .mobile {
     display: block;
@@ -34,5 +42,12 @@
     padding: 0 !important;
     margin: 1rem 0;
     overflow: visible !important;
+  }
+  .nav {
+    top: unset !important;
+    padding: 0.5rem 1rem;
+  }
+  .toolbar {
+    top: 0;
   }
 }
