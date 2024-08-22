@@ -12,3 +12,7 @@
   outline: none;
   height: 100%;
 }
+
+.editor-container .cm-activeLine {
+  background-color: #99eeff33 !important;
+}
