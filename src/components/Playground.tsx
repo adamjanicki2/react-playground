@@ -1,5 +1,5 @@
 import { Button, IconButton, Select, UnstyledButton } from "@adamjanicki/ui";
-import { classNames } from "@adamjanicki/ui/utils/util";
+import { classNames } from "@adamjanicki/ui/functions";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
@@ -69,7 +69,6 @@ const Playground = ({ width, style = {}, className }: Props) => {
         </Button>
         <Select
           aria-label="theme"
-          style={{ padding: "8px" }}
           options={Object.keys(availablethemes)}
           value={theme}
           onChange={(e) => setTheme(e.target.value)}

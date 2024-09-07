@@ -1,6 +1,6 @@
 import CodeMirror, { ReactCodeMirrorProps } from "@uiw/react-codemirror";
 import { langs } from "@uiw/codemirror-extensions-langs";
-import { classNames } from "@adamjanicki/ui/utils/util";
+import { classNames } from "@adamjanicki/ui/functions";
 import "src/components/editor.css";
 import { Resizable } from "re-resizable";
 

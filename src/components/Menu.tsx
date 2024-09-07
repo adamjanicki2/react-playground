@@ -1,7 +1,7 @@
 import React from "react";
 import { Popover } from "@adamjanicki/ui-extended";
 import { useRef } from "react";
-import { classNames } from "@adamjanicki/ui/utils/util";
+import { classNames } from "@adamjanicki/ui/functions";
 
 type Props = {
   items: React.ReactNode[];
