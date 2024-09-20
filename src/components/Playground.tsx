@@ -73,7 +73,6 @@ const Playground = ({ width, style = {}, className }: Props) => {
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
           className="mh2"
-          innerStyle={{ paddingTop: 8, paddingBottom: 8 }}
         />
         <Menu
           trigger={

@@ -25,6 +25,11 @@ body {
   margin: 1rem 0;
 }
 
+select {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
 .bordering {
   border: 2px solid red;
 }
