@@ -1,3 +1,3 @@
 # React Playground
 
-Playground for writing dynamic react.
+A playground for developing quick React snippets

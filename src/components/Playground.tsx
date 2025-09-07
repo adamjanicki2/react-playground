@@ -1,16 +1,13 @@
-import { Button, IconButton, Select, UnstyledButton } from "@adamjanicki/ui";
+import { Button, Select, Box, ui } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import Compiler from "src/components/Compiler";
 import Editor from "src/components/Editor";
-import FileUpload from "src/components/FileUpload";
 import Menu from "src/components/Menu";
 import { useCodeStore, useKeys } from "src/hooks";
-import availablethemes from "src/utils/availableThemes";
+import availablethemes, { type Theme } from "src/utils/availableThemes";
+import { downloadCode, getCurrentTimestamp } from "src/utils/helpers";
 import lint from "src/utils/lint";
-import { downloadCode, getCurrentTimestamp } from "src/utils/util";
 
 const codeString = `import React from "react";
 
@@ -21,12 +18,10 @@ export default function App() {
 
 type Props = {
   width: number;
-  style?: React.CSSProperties;
-  className?: string;
 };
 
-const Playground = ({ width, style = {}, className }: Props) => {
-  const compileRef = useRef<HTMLButtonElement>(null);
+export default function Playground({ width }: Props) {
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const { code: savedCode, setCode: setSavedCode } = useCodeStore();
   const initialCode = savedCode ?? codeString;
 
@@ -34,27 +29,37 @@ const Playground = ({ width, style = {}, className }: Props) => {
   const [codeToCompile, setCodeToCompile] = useState(initialCode);
 
   const [showEditor, setShowEditor] = useState(true);
-  const [theme, setTheme] = useState("VSCode");
+  const [theme, setTheme] = useState<Theme>("VSCode");
 
   useKeys({
     keys: ["meta+s", "ctrl+s"],
-    callback: () => compileRef.current?.click(),
+    callback: () => buttonRef.current?.click(),
     keyEvent: "keydown",
   });
 
   const diff = code.trim() !== codeToCompile.trim();
 
   return (
-    <div className="flex flex-column items-center">
-      <div className="flex items-center pa3 nav-bs toolbar">
+    <Box vfx={{ axis: "y", align: "center" }}>
+      <Box
+        vfx={{
+          axis: "x",
+          align: "center",
+          padding: "m",
+          gap: "s",
+          borderBottom: true,
+        }}
+        className="toolbar"
+      >
         <Button
-          ref={compileRef}
+          vfx={{ axis: "x", align: "center", gap: "xs" }}
+          ref={buttonRef}
           onClick={async () => {
             if (diff) {
               let lintedCode: string;
               try {
                 lintedCode = await lint(code);
-              } catch (e: any) {
+              } catch {
                 return setCodeToCompile(code);
               }
               if (code !== lintedCode) {
@@ -65,61 +70,39 @@ const Playground = ({ width, style = {}, className }: Props) => {
             }
           }}
         >
-          Compile <code className="desktop">(⌘S)</code>
+          Compile{" "}
+          <ui.code vfx={{ fontSize: "default" }} className="desktop">
+            (⌘S)
+          </ui.code>
         </Button>
         <Select
           aria-label="theme"
           options={Object.keys(availablethemes)}
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
-          className="mh2"
         />
         <Menu
-          trigger={
-            <IconButton
-              aria-label="more"
-              className="alt-button flex items-center justify-center"
-              style={{ width: 32, height: 32, borderRadius: "50%" }}
-              icon={<FontAwesomeIcon icon={faEllipsisVertical} />}
-            />
-          }
-          items={[
-            <UnstyledButton
-              className="w-100 pa3 br3 alt-button tl"
-              onClick={() => setShowEditor(!showEditor)}
-            >
-              {showEditor ? "Hide" : "Show"} editor
-            </UnstyledButton>,
-            <UnstyledButton
-              onClick={() =>
+          buttonProps={{ icon: "overflow" }}
+          children={[
+            {
+              text: showEditor ? "Hide editor" : "Show editor",
+              onAction: () => setShowEditor(!showEditor),
+            },
+            {
+              text: "Download as .jsx",
+              onAction: () =>
                 downloadCode(
                   code,
                   `react-playground-${getCurrentTimestamp()}.jsx`
-                )
-              }
-              className="w-100 pa3 br3 alt-button tl"
-            >
-              Download as <code>.jsx</code>
-            </UnstyledButton>,
-            <FileUpload
-              ButtonElement={UnstyledButton as any}
-              ButtonProps={{}}
-              className="w-100 pa3 br3 alt-button tl"
-              onChange={(file) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  const content = reader.result as string;
-                  setCode(content);
-                };
-                reader.readAsText(file);
-              }}
-            />,
+                ),
+            },
           ]}
         />
-      </div>
-      <div
-        className={classNames("flex w-100 playground-container", className)}
-        style={{ width, ...style }}
+      </Box>
+      <Box
+        vfx={{ axis: "x" }}
+        className="playground-container"
+        style={{ width }}
       >
         {showEditor && (
           <Editor
@@ -129,17 +112,15 @@ const Playground = ({ width, style = {}, className }: Props) => {
             theme={availablethemes[theme]}
           />
         )}
-        <div
+        <Box
           className={classNames(
             "compiler-output",
             showEditor ? "compiler-bs" : ""
           )}
         >
           <Compiler code={codeToCompile} />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
-};
-
-export default Playground;
+}

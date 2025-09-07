@@ -1,11 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router";
 import Footer from "src/components/Footer";
 import Nav from "src/components/Nav";
 import About from "src/pages/About";
 import Home from "src/pages/Home";
 import NotFound from "src/pages/NotFound";
 
-const App = () => {
+export default function App() {
   return (
     <BrowserRouter basename="/react-playground">
       <Nav />
@@ -18,6 +18,4 @@ const App = () => {
       <Footer />
     </BrowserRouter>
   );
-};
-
-export default App;
+}

@@ -1,28 +1,59 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Box, TripleFade as Hamburger, ui } from "@adamjanicki/ui";
+import Link, { UnstyledLink } from "src/components/Link";
+import Logo from "src/images/logo.svg?react";
 import "src/components/nav.css";
-import { UnstyledLink } from "src/components/Link";
-import { ReactComponent as Logo } from "src/images/logo.svg";
 
 type NavlinkProps = {
   to: string;
   children: React.ReactNode;
 };
 
-const Navlink = (props: NavlinkProps) => (
-  <li className="navlink-li">
-    <UnstyledLink className="navlink" {...props} />
-  </li>
-);
+export default function Nav() {
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const closeMenu = () => setOpen(false);
 
-const Nav = () => (
-  <nav className="flex items-center justify-between w-100 nav nav-bs pv2 ph4">
-    <UnstyledLink className="nav-title flex items-center" to="/">
-      <Logo style={{ height: 32 }} />
-      <span className="desktop ml2">React Playground</span>
-    </UnstyledLink>
-    <ul className="flex items-center link-container ma0">
-      <Navlink to="/about/">About</Navlink>
-    </ul>
-  </nav>
-);
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
 
-export default Nav;
+  const Navlink = (props: NavlinkProps) => (
+    <Link
+      vfx={{ width: "full", fontWeight: 5, color: "default" }}
+      style={{ whiteSpace: "nowrap" }}
+      onClick={closeMenu}
+      {...props}
+    />
+  );
+
+  return (
+    <ui.nav id="nav" vfx={{ paddingY: "s", paddingX: "l", borderBottom: true }}>
+      <Box
+        vfx={{ axis: "x", align: "center", justify: "between" }}
+        className="bar-container"
+      >
+        <UnstyledLink
+          vfx={{ axis: "x", align: "center", gap: "s" }}
+          className="nav-title"
+          to="/"
+        >
+          <Logo height={32} />
+          React Playground
+        </UnstyledLink>
+        <Box className="mobile">
+          <Hamburger open={open} onClick={() => setOpen(!open)} />
+        </Box>
+      </Box>
+      <Box
+        className="desktop navlink-container"
+        // force display to be open on mobile when hamburger is toggled
+        style={open ? { display: "flex" } : undefined}
+      >
+        <Navlink to="/">Home</Navlink>
+        <Navlink to="/about/">About</Navlink>
+      </Box>
+    </ui.nav>
+  );
+}

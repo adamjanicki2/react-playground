@@ -14,7 +14,7 @@ type Props = {
 
 const Editor = ({ code, setCode, screenWidth, className, theme }: Props) => (
   <Resizable
-    className={classNames("flex editor-container", className)}
+    className={classNames("aui-flex-x editor-container", className)}
     defaultSize={{ width: Math.floor(screenWidth / 2) }}
     enable={{ right: true }}
     minWidth={350}
@@ -22,7 +22,7 @@ const Editor = ({ code, setCode, screenWidth, className, theme }: Props) => (
   >
     <CodeMirror
       style={{ width: "100%", height: "100%" }}
-      className="pa2"
+      className="aui-pa-s"
       value={code}
       onChange={(value) => setCode(value)}
       theme={theme}
