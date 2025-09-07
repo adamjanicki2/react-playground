@@ -1,12 +1,10 @@
-import * as prettier from "prettier/standalone";
-import * as babylon from "prettier/parser-babel";
-import * as prettierPluginEstree from "prettier/plugins/estree";
+import prettier from "prettier/standalone";
+import babelPlugin from "prettier/plugins/babel";
+import estreePlugin from "prettier/plugins/estree";
 
 export default function lint(code: string): Promise<string> {
-  const formattedCode = prettier.format(code, {
+  return prettier.format(code, {
     parser: "babel",
-    plugins: [babylon, prettierPluginEstree],
+    plugins: [babelPlugin, estreePlugin],
   });
-
-  return formattedCode;
 }

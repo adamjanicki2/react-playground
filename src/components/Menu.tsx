@@ -1,57 +1,70 @@
-import React from "react";
-import { Popover } from "@adamjanicki/ui-extended";
-import { useRef } from "react";
-import { classNames } from "@adamjanicki/ui/functions";
+import React, { useRef, useState } from "react";
+import Popover from "@adamjanicki/ui-extended/components/Popover";
+import type { IconType } from "@adamjanicki/ui/components/Icon/icons";
+import { Box, Icon, IconButton, UnstyledButton } from "@adamjanicki/ui";
 
-type Props = {
-  items: React.ReactNode[];
-  trigger: React.ReactElement;
-  className?: string;
-  style?: React.CSSProperties;
+type Action = {
+  onAction?: () => void;
+  icon?: IconType;
+  text: string;
 };
 
-const Menu = ({ items, trigger, className, style = {} }: Props) => {
-  const triggerRef = useRef<HTMLElement>(null);
-  const [open, setOpen] = React.useState(false);
+type IconButtonProps = React.ComponentProps<typeof IconButton>;
+
+type Props = {
+  children: Action[];
+  buttonProps: IconButtonProps;
+};
+
+export default function Menu({ buttonProps, children }: Props) {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const closeMenu = () => setOpen(false);
 
   return (
     <>
-      {React.cloneElement(trigger, {
-        ref: triggerRef,
-        onClick: (e: MouseEvent) => {
-          trigger.props.onClick?.(e);
-          setOpen(!open);
-        },
-        className: classNames(trigger.props.className, className),
-        style: { ...(trigger.props.style || {}), ...style },
-      })}
+      <IconButton
+        {...buttonProps}
+        onClick={() => setOpen(!open)}
+        ref={ref}
+        aria-label="toggle menu"
+      />
       <Popover
-        triggerRef={triggerRef}
+        offset={4}
         open={open}
-        style={{
-          backgroundColor: "white",
-          zIndex: 1000,
-        }}
-        className="fade b--moon-gray ba corners--rounded pa1"
-        onClose={() => setOpen(false)}
+        triggerRef={ref}
+        placement="bottom-end"
+        onClose={closeMenu}
+        vfx={{ axis: "y" }}
         returnFocusOnEscape={false}
-        placement="bottom-start"
       >
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-          }}
-          onClick={() => setOpen(false)}
-        >
-          {items.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
+        {children.map((item, i) => {
+          const { icon, text, onAction } = item;
+
+          return (
+            <UnstyledButton
+              vfx={{
+                axis: "x",
+                align: "center",
+                padding: "m",
+                radius: "rounded",
+                fontWeight: 5,
+              }}
+              className="aui-autocomplete-option"
+              onClick={() => {
+                onAction?.();
+                closeMenu();
+              }}
+              key={i}
+            >
+              <Box vfx={{ axis: "x", align: "center", gap: "s" }}>
+                {icon && <Icon icon={icon} />}
+                {text}
+              </Box>
+            </UnstyledButton>
+          );
+        })}
       </Popover>
     </>
   );
-};
-
-export default Menu;
+}

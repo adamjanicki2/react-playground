@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
+import { useWindowResize } from "@adamjanicki/ui";
+import { useState } from "react";
 import Playground from "src/components/Playground";
-import { usableWidth } from "src/utils/util";
+import { useTitle } from "src/hooks";
+import { usableWidth } from "src/utils/helpers";
 
-const Home = () => {
+export default function Home() {
   const [screenWidth, setScreenWidth] = useState(usableWidth());
 
-  useEffect(() => {
-    document.title = "React Playground";
-    const handleResize = () => setScreenWidth(usableWidth());
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useTitle("React Playground");
+  useWindowResize(() => setScreenWidth(usableWidth()));
 
   return <Playground width={screenWidth} />;
-};
-
-export default Home;
+}
