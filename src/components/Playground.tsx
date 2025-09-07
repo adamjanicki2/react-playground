@@ -79,7 +79,7 @@ export default function Playground({ width }: Props) {
           aria-label="theme"
           options={Object.keys(availablethemes)}
           value={theme}
-          onChange={(e) => setTheme(e.target.value)}
+          onChange={(e) => setTheme(e.target.value as Theme)}
         />
         <Menu
           buttonProps={{ icon: "overflow" }}
