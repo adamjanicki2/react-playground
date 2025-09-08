@@ -8,6 +8,7 @@ import { useCodeStore, useKeys } from "src/hooks";
 import availablethemes, { type Theme } from "src/utils/availableThemes";
 import { downloadCode, getCurrentTimestamp } from "src/utils/helpers";
 import lint from "src/utils/lint";
+import "src/components/compiler.css";
 
 const codeString = `import React from "react";
 
