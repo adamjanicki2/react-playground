@@ -9,14 +9,15 @@ export default function makeIframeSrc(code: string) {
   transformed = transformed.replace(/export\s+default\s+/, "window.__App__ = ");
 
   const babelCompiled = Babel.transform(transformed, {
-    presets: ["react"],
+    presets: ["react", "typescript"],
+    filename: "Playground.tsx",
   }).code;
 
   return `<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui/style.css">
-    <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui-extended/style.css">
+  <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui/style.css">
+  <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui-extended/style.css">
 </head>
 <body>
 <div id="root"></div>
@@ -29,23 +30,10 @@ root.render(React.createElement(window.__App__));
 </script>
 <script>
   window.addEventListener("error", (event) => {
-    parent.postMessage(
-      {
-        type: "iframe-error",
-        message: event.message
-      },
-      "*"
-    );
+    parent.postMessage({ type: "iframe-error", message: event.message }, "*");
   });
-
   window.addEventListener("unhandledrejection", (event) => {
-    parent.postMessage(
-      {
-        type: "iframe-error",
-        message: event.reason?.message || String(event.reason)
-      },
-      "*"
-    );
+    parent.postMessage({ type: "iframe-error", message: event.reason?.message || String(event.reason) }, "*");
   });
 </script>
 </body>
