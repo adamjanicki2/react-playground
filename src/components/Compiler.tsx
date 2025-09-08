@@ -35,7 +35,7 @@ function Iframe({ code }: Props) {
     <ui.iframe
       vfx={{ borderStyle: "none", width: "full", height: "full" }}
       ref={iframeRef}
-      sandbox="allow-scripts allow-popups"
+      sandbox="allow-scripts allow-modals"
       referrerPolicy="no-referrer"
     />
   );
