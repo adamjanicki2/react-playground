@@ -3,7 +3,7 @@ import * as Babel from "@babel/standalone";
 export default function makeIframeSrc(code: string) {
   let transformed = code.replace(
     /from\s+["']([^"']+)["']/g,
-    (_, libName) => `from "https://esm.sh/${libName}"`
+    (_, libName) => `from "https://esm.sh/${libName}?dev&esm"`
   );
 
   transformed = transformed.replace(/export\s+default\s+/, "window.__App__ = ");
@@ -24,7 +24,7 @@ export default function makeIframeSrc(code: string) {
 <script type="module">
 ${babelCompiled}
 
-import { createRoot } from "https://esm.sh/react-dom/client?dev";
+import { createRoot } from "https://esm.sh/react-dom/client?dev&esm"; 
 const root = createRoot(document.getElementById("root"));
 root.render(React.createElement(window.__App__));
 </script>
