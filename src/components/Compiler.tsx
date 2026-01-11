@@ -1,4 +1,4 @@
-import { Alert, ui, ErrorBoundary } from "@adamjanicki/ui";
+import { Alert, ErrorBoundary, ui } from "@adamjanicki/ui";
 import { useEffect, useRef, useState } from "react";
 import makeIframeSrc from "src/utils/makeIframeSrc";
 
@@ -58,7 +58,7 @@ const ErrorMessage = ({ error }: ErrorMessageProps) => {
   return (
     <Alert type="error">
       <ui.p vfx={{ margin: "none" }} style={{ whiteSpace: "pre-wrap" }}>
-        <strong>{name}</strong>: {message}
+        <ui.strong>{name}</ui.strong>: {message}
       </ui.p>
     </Alert>
   );

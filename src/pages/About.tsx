@@ -1,6 +1,5 @@
+import { Link, ui } from "@adamjanicki/ui";
 import Page from "src/components/Page";
-import { ui } from "@adamjanicki/ui";
-import Link from "src/components/Link";
 
 export default function About() {
   return (

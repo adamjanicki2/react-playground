@@ -1,7 +1,8 @@
-import CodeMirror, { ReactCodeMirrorProps } from "@uiw/react-codemirror";
-import { langs } from "@uiw/codemirror-extensions-langs";
-import { classNames } from "@adamjanicki/ui/functions";
 import "src/components/editor.css";
+
+import { classNames } from "@adamjanicki/ui/functions";
+import { langs } from "@uiw/codemirror-extensions-langs";
+import CodeMirror, { ReactCodeMirrorProps } from "@uiw/react-codemirror";
 import { Resizable } from "re-resizable";
 
 type Props = {
