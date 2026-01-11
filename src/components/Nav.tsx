@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { Box, TripleFade as Hamburger, ui } from "@adamjanicki/ui";
-import Link, { UnstyledLink } from "src/components/Link";
-import Logo from "src/images/logo.svg?react";
 import "src/components/nav.css";
+
+import {
+  Box,
+  Link,
+  TripleFade as Hamburger,
+  ui,
+  UnstyledLink,
+} from "@adamjanicki/ui";
+import { useState } from "react";
+import Logo from "src/images/logo.svg?react";
 
 type NavlinkProps = {
   to: string;
@@ -11,17 +16,12 @@ type NavlinkProps = {
 };
 
 export default function Nav() {
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const closeMenu = () => setOpen(false);
 
-  useEffect(() => {
-    closeMenu();
-  }, [pathname]);
-
   const Navlink = (props: NavlinkProps) => (
     <Link
-      vfx={{ width: "full", fontWeight: 5, color: "default" }}
+      vfx={{ width: "full", color: "default" }}
       style={{ whiteSpace: "nowrap" }}
       onClick={closeMenu}
       {...props}
@@ -38,6 +38,7 @@ export default function Nav() {
           vfx={{ axis: "x", align: "center", gap: "s" }}
           className="nav-title"
           to="/"
+          onClick={closeMenu}
         >
           <Logo height={32} />
           React Playground

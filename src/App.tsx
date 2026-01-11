@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { Route, Router, Routes } from "@adamjanicki/ui";
 import Footer from "src/components/Footer";
 import Nav from "src/components/Nav";
 import About from "src/pages/About";
@@ -7,15 +7,13 @@ import NotFound from "src/pages/NotFound";
 
 export default function App() {
   return (
-    <BrowserRouter basename="/react-playground">
+    <Router basename="/react-playground">
       <Nav />
-      <Routes>
+      <Routes fallback={<NotFound />}>
         <Route path="/" element={<Home />} />
         <Route path="/about/" element={<About />} />
-        {/* Make sure this is the last route */}
-        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 }

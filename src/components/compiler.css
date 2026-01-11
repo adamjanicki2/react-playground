@@ -1,5 +1,5 @@
 .compiler-output {
-  overflow: scroll;
+  overflow: auto;
   width: 100%;
   padding: 0.5rem;
 }

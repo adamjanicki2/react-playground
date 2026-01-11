@@ -1,5 +1,8 @@
-import { Button, Select, Box, ui } from "@adamjanicki/ui";
+import "src/components/compiler.css";
+
+import { Box, Button, Select, ui } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
+import { overflow } from "@adamjanicki/ui/icons";
 import { useRef, useState } from "react";
 import Compiler from "src/components/Compiler";
 import Editor from "src/components/Editor";
@@ -8,7 +11,6 @@ import { useCodeStore, useKeys } from "src/hooks";
 import availablethemes, { type Theme } from "src/utils/availableThemes";
 import { downloadCode, getCurrentTimestamp } from "src/utils/helpers";
 import lint from "src/utils/lint";
-import "src/components/compiler.css";
 
 const codeString = `import React from "react";
 
@@ -83,7 +85,7 @@ export default function Playground({ width }: Props) {
           onChange={(e) => setTheme(e.target.value as Theme)}
         />
         <Menu
-          buttonProps={{ icon: "overflow" }}
+          buttonProps={{ icon: overflow }}
           children={[
             {
               text: showEditor ? "Hide editor" : "Show editor",

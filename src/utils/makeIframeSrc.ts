@@ -17,7 +17,6 @@ export default function makeIframeSrc(code: string) {
 <html>
 <head>
   <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui/style.css">
-  <link rel="stylesheet" href="https://esm.sh/@adamjanicki/ui-extended/style.css">
 </head>
 <body>
 <div id="root"></div>
