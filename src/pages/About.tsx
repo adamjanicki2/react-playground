@@ -10,6 +10,7 @@ export default function About() {
           fontSize: "m",
           fontWeight: 5,
           color: "muted",
+          lineHeight: "m",
         }}
         style={{ width: "70%" }}
       >
@@ -29,19 +30,26 @@ export default function About() {
         To compile your code, you can either click the "Compile" button or use
         the keyboard shortcut <ui.code>Ctrl + S</ui.code>. This will update the
         output on the right side of the screen. Importantly, using this app
-        assumes you're already familar with React, but in case you aren't, I
+        assumes you're already familiar with React, but in case you aren't, I
         might consider adding a very in-depth tutorial page to the site in the
         future.
         <ui.br />
         <ui.br />
         As I mentioned above, this is supposed to be a simple playground. As
-        such, this is a frontend-only app, and you cannot permanentely persist
+        such, this is a frontend-only app, and you cannot permanently persist
         the playground components you create. To make things a little bit
         easier, your work will be saved in local storage so you can come back to
         it later. However, this is not a guarantee, and you should not rely on
         this feature to persist your work as clearing your browser cache and
-        cookies will permanently erase this data. If you really care about
-        something you make, make sure to download it!
+        cookies will permanently erase this data.
+        <ui.br />
+        <ui.br />
+        Sharing is supported via a snapshot link. Use the share action on the
+        home page to generate a URL that encodes your code in the hash and
+        renders a preview. Anyone with the link can view the output and click
+        "Edit in my playground" to load it into their own editor and make a new
+        share link. If you really care about something you make, make sure to
+        download it!
       </ui.p>
     </Page>
   );

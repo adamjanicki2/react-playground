@@ -1,5 +1,6 @@
-import { Alert, ErrorBoundary, ui } from "@adamjanicki/ui";
+import { ErrorBoundary, ui } from "@adamjanicki/ui";
 import { useEffect, useRef, useState } from "react";
+import Alert from "src/components/Alert";
 import makeIframeSrc from "src/utils/makeIframeSrc";
 
 type Props = { code: string };
