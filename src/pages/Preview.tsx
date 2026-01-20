@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Icon,
+  Tooltip,
   useLocation,
   useNavigate,
 } from "@adamjanicki/ui";
@@ -60,15 +61,23 @@ export default function Preview() {
                 gap: "s",
               }}
             >
-              <Button
-                size="small"
-                onClick={() => {
-                  setCode(code);
-                  navigate("/");
-                }}
+              <Tooltip
+                offset={2}
+                vfx={{ fontSize: "s", fontWeight: 6, padding: "xs" }}
+                anchor={
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setCode(code);
+                      navigate("/");
+                    }}
+                  >
+                    Edit in my playground
+                  </Button>
+                }
               >
-                Edit in my playground
-              </Button>
+                Warning: this will overwrite your current playground!
+              </Tooltip>
               <CopyButton>{code}</CopyButton>
             </Box>
             <Box vfx={{ axis: "y", width: "full", padding: "s" }}>

@@ -45,7 +45,7 @@ export default function Playground({ width }: Props) {
   const diff = code.trim() !== codeToCompile.trim();
   const createShareUrl = () => {
     const basePath = pathname.endsWith("/") ? pathname : `${pathname}/`;
-    return `${window.location.origin}${basePath}preview#${serializeCode(code)}`;
+    return `${window.location.origin}${basePath}preview#${serializeCode(codeToCompile)}`;
   };
 
   return (
