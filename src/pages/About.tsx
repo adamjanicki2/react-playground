@@ -10,6 +10,7 @@ export default function About() {
           fontSize: "m",
           fontWeight: 5,
           color: "muted",
+          lineHeight: "m",
         }}
         style={{ width: "70%" }}
       >
@@ -47,8 +48,8 @@ export default function About() {
         home page to generate a URL that encodes your code in the hash and
         renders a preview. Anyone with the link can view the output and click
         "Edit in my playground" to load it into their own editor and make a new
-        share link. If you really care about
-        something you make, make sure to download it!
+        share link. If you really care about something you make, make sure to
+        download it!
       </ui.p>
     </Page>
   );
