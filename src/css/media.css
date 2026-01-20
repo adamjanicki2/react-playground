@@ -20,6 +20,11 @@
   z-index: 1000;
 }
 
+.preview-snippet,
+.preview-compiler {
+  width: 50%;
+}
+
 @media only screen and (max-width: 820px) {
   .mobile {
     display: flex;
@@ -48,6 +53,13 @@
     padding: 0 !important;
     margin: 1rem 0;
     overflow: visible !important;
+  }
+  .preview-container {
+    flex-direction: column;
+  }
+  .preview-snippet,
+  .preview-compiler {
+    width: 100%;
   }
   nav {
     top: unset !important;

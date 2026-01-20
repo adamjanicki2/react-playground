@@ -1,6 +1,6 @@
 import "src/components/compiler.css";
 
-import { Box, Button, Select, ui } from "@adamjanicki/ui";
+import { Box, Button, Select, ui, useLocation } from "@adamjanicki/ui";
 import { classNames } from "@adamjanicki/ui/functions";
 import { overflow } from "@adamjanicki/ui/icons";
 import { useRef, useState } from "react";
@@ -11,6 +11,7 @@ import { useCodeStore, useKeys } from "src/hooks";
 import availablethemes, { type Theme } from "src/utils/availableThemes";
 import { downloadCode, getCurrentTimestamp } from "src/utils/helpers";
 import lint from "src/utils/lint";
+import { serializeCode } from "src/utils/share";
 
 const codeString = `import React from "react";
 
@@ -25,6 +26,7 @@ type Props = {
 
 export default function Playground({ width }: Props) {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const { pathname } = useLocation();
   const { code: savedCode, setCode: setSavedCode } = useCodeStore();
   const initialCode = savedCode ?? codeString;
 
@@ -41,6 +43,10 @@ export default function Playground({ width }: Props) {
   });
 
   const diff = code.trim() !== codeToCompile.trim();
+  const createShareUrl = () => {
+    const basePath = pathname.endsWith("/") ? pathname : `${pathname}/`;
+    return `${window.location.origin}${basePath}preview#${serializeCode(code)}`;
+  };
 
   return (
     <Box vfx={{ axis: "y", align: "center" }}>
@@ -98,6 +104,13 @@ export default function Playground({ width }: Props) {
                   code,
                   `react-playground-${getCurrentTimestamp()}.jsx`
                 ),
+            },
+            {
+              text: "Copy shareable link",
+              onAction: () => {
+                const url = createShareUrl();
+                navigator.clipboard.writeText(url);
+              },
             },
           ]}
         />

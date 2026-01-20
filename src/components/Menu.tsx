@@ -51,8 +51,8 @@ export default function Menu({ buttonProps, children }: Props) {
               padding: "m",
               radius: "rounded",
               fontWeight: 5,
+              hover: "shade",
             }}
-            className="aui-subtle-hover"
             onClick={() => {
               onAction?.();
               closeMenu();
