@@ -22,6 +22,7 @@ export default function Alert({ type, children, vfx, ...props }: Props) {
     <UIAlert
       type={type}
       vfx={{ ...vfx, axis: "x", align: "center", gap: "s", width: "max" }}
+      {...props}
     >
       <Icon size="s" icon={TYPE_TO_ICON[type]} />
       {children}
